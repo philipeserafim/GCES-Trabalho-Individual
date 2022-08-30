@@ -1,4 +1,8 @@
-version: '3.9'
+version: '3.0'
+
+networks:
+  library:
+    driver: bridge
 
 services:
   library_db: 
@@ -15,3 +19,30 @@ services:
       POSTGRES_HOST: ${POSTGRES_HOST}
     ports:
       - "5432:5432"
+    networks:
+      - library
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "library_db"]
+      interval: 10s
+      timeout: 60s
+      retries: 5
+      start_period: 30s
+
+  library_app:
+    container_name: library_app
+    build: ./library_back
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    volumes:
+      - ./library_back:/library_back
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - library
+    depends_on:
+      library_db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
