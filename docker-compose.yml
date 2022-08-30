@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  library_db: 
+    container_name: library_db
+    image: postgres
+    volumes:
+      - ./library_back/db:/library_back/db
+    user: ${POSTGRES_USER}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - "5432:5432"
