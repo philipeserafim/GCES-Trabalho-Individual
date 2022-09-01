@@ -17,16 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build_DB
-        run: docker-compose up library_db -d
+        run: docker-compose up library_db
       - name: Build_App
-        run: docker-compose up library_app -d
-  
+        run: docker-compose up library_app
+
   test_app:
       name: Test_app
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
         - name: Build_DB
-          run: docker-compose up library_db -d
+          run: docker-compose up library_db
         - name: Test_App
-          run: docker-compose up library_app -d bash -c "python manage.py test"
+          run: docker-compose up library_app bash -c "python manage.py test"
