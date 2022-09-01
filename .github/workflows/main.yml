@@ -11,18 +11,21 @@ defaults:
     working-directory: ./
     
 jobs:
-  build_app: 
-    name: Build_app
+  build: 
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Build_App
-        run: docker-compose run library_db library_back
+        run: docker-compose up --build
 
-  test_app:
-      name: Test_app
+  test:
+      name: Test
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
-        - name: Test_App
-          run: docker-compose run library_db library_back bash -c "python manage.py test"
+        - name: Build_App
+          run: docker-compose up --build
+        - uses: docker://library_app
+        - name: Run_tests
+          run: python manage.py test
