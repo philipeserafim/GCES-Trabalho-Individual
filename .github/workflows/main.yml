@@ -34,4 +34,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Backend Lint
-        run: docker-compose run library_app sh -c "pylint manage.py src/settings.py src/urls.py src/wsgi.py"
+        run: docker-compose run library_app sh -c "pylint manage.py src/settings.py src/urls.py src/wsgi.py --disable=C"
