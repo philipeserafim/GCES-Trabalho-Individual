@@ -42,13 +42,13 @@ jobs:
       - lint
       - tests
     
-    steps:
-      - uses: actions/checkout@v2
-      - name: Docker Login
-        env:
+    env:
           USER: ${{secrets.DOCKER_USER}}
           PSW: ${{secrets.DOCKER_PSW}}
           TAG: ${{secrets.DOCKER_USER}}/app:$(date +%s)
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker Login
         run: docker login -u $USER -p $PSW
         
       - name: Build app image
@@ -66,14 +66,14 @@ jobs:
     needs:
       - lint
       - tests
+    env:
+        USER: ${{secrets.DOCKER_USER}}
+        PSW: ${{secrets.DOCKER_PSW}}
+        TAG: ${{secrets.DOCKER_USER}}/front:$(date +%s)
     
     steps:
       - uses: actions/checkout@v2
       - name: Docker Login
-        env:
-          USER: ${{secrets.DOCKER_USER}}
-          PSW: ${{secrets.DOCKER_PSW}}
-          TAG: ${{secrets.DOCKER_USER}}/front:$(date +%s)
         run: docker login -u $USER -p $PSW
         
       - name: Build front image
