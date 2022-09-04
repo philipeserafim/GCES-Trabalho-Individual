@@ -27,3 +27,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Backend tests
         run: docker-compose run library_app sh -c "python manage.py migrate && python manage.py test"
+        
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Backend Lint
+        run: docker-compose run library_app sh -c "pylint manage.py src/settings.py src/urls.py src/wsgi.py"
