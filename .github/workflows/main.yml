@@ -54,7 +54,7 @@ jobs:
         run: docker compose build library_app
       
       - name: Tag image
-        run: docker tag library_app philipeserafim/app:$(date +%s)
+        run: docker tag gces-trabalho-individual_library_app philipeserafim/app:$(date +%s)
      
       - name: Docker push
         run: docker push ${{secrets.DOCKER_USER}}/app
