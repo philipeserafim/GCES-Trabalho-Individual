@@ -55,7 +55,7 @@ jobs:
         run: docker compose build library_app
             
       - name: Tag app image
-        run: docker tag library_app:local ${{secrets.DOCKER_USER}}/app:$TAG
+        run: docker tag library_app:local philipeserafim/app:$TAG
       
       - name: Docker push app image
         run: docker push ${{secrets.DOCKER_USER}}/app:$TAG
@@ -80,7 +80,7 @@ jobs:
         run: docker compose build library_front
           
       - name: Tag front image
-        run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$TAG
+        run: docker tag library_front:local philipeserafim/front:$TAG
            
       - name: Docker push front image
         run: docker push ${{secrets.DOCKER_USER}}/front:$TAG
