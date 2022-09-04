@@ -55,10 +55,10 @@ jobs:
         run: docker compose build library_app
             
       - name: Tag app image
-        run: docker tag library_app:local $TAG
+        run: docker tag library_app:local philipeserafim/app:latest
       
       - name: Docker push app image
-        run: docker push $TAG
+        run: docker push philipeserafim/app:latest
   
   cd-front:
     name: CD-Front
@@ -80,9 +80,9 @@ jobs:
         run: docker compose build library_front
           
       - name: Tag front image
-        run: docker tag library_front:local $TAG
+        run: docker tag library_front:local philipeserafim/front:latest
            
       - name: Docker push front image
-        run: docker push $TAG
+        run: docker push philipeserafim/front:latest
       
     
