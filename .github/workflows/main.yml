@@ -53,19 +53,21 @@ jobs:
         
       - name: Build app image
         run: docker compose build library_app
-      
-      - name: Build front image
-        run: docker compose build library_front
-      
+            
       - name: Tag app image
-        run: docker tag   library_app:local ${{secrets.DOCKER_USER}}/$TAG
+        run: docker tag   library_app:local ${{secrets.DOCKER_USER}}/app:$TAG
       
-      - name: Tag front image
-        run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$TAG
-     
       - name: Docker push app image
         run: docker push ${{secrets.DOCKER_USER}}/app:$TAG
-      
+     
+     
+     
+      - name: Build front image
+        run: docker compose build library_front
+          
+      - name: Tag front image
+        run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$TAG
+           
       - name: Docker push front image
         run: docker push ${{secrets.DOCKER_USER}}/front:$TAG
       
