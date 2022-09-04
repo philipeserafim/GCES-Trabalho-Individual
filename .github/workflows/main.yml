@@ -48,6 +48,7 @@ jobs:
         env:
           USER: ${{secrets.DOCKER_USER}}
           PSW: ${{secrets.DOCKER_PSW}}
+          TAG: $(date +%s)
         run: docker login -u $USER -p $PSW
         
       - name: Build app image
@@ -57,15 +58,15 @@ jobs:
         run: docker compose build library_front
       
       - name: Tag app image
-        run: docker tag   library_app:local ${{secrets.DOCKER_USER}}/app:$(date +%s)
+        run: docker tag   library_app:local ${{secrets.DOCKER_USER}}/$TAG
       
       - name: Tag front image
-        run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$(date +%s)
+        run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$TAG
      
       - name: Docker push app image
-        run: docker push ${{secrets.DOCKER_USER}}/app:$(date +%s)
+        run: docker push ${{secrets.DOCKER_USER}}/app:$TAG
       
       - name: Docker push front image
-        run: docker push ${{secrets.DOCKER_USER}}/front:$(date +%s)
+        run: docker push ${{secrets.DOCKER_USER}}/front:$TAG
       
     
