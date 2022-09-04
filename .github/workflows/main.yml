@@ -41,11 +41,11 @@ jobs:
     needs:
       - lint
       - tests
+      - build
     
     env:
           USER: ${{secrets.DOCKER_USER}}
           PSW: ${{secrets.DOCKER_PSW}}
-          TAG: ${{secrets.DOCKER_USER}}/app:$(date +%s)
     steps:
       - uses: actions/checkout@v2
       - name: Docker Login
@@ -66,10 +66,10 @@ jobs:
     needs:
       - lint
       - tests
+      - build
     env:
         USER: ${{secrets.DOCKER_USER}}
         PSW: ${{secrets.DOCKER_PSW}}
-        TAG: ${{secrets.DOCKER_USER}}/front:$(date +%s)
     
     steps:
       - uses: actions/checkout@v2
