@@ -41,7 +41,6 @@ jobs:
     needs:
       - lint
       - tests
-      - build
     
     steps:
       - uses: actions/checkout@v2
@@ -58,7 +57,7 @@ jobs:
         run: docker compose build library_front
       
       - name: Tag app image
-        run: docker tag library_app:local ${{secrets.DOCKER_USER}}/app:$(date +%s)
+        run: docker tag   library_app:local ${{secrets.DOCKER_USER}}/app:$(date +%s)
       
       - name: Tag front image
         run: docker tag library_front:local ${{secrets.DOCKER_USER}}/front:$(date +%s)
