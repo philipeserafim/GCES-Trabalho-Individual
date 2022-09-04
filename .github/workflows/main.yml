@@ -2,30 +2,19 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main, devel]
-    
+    branches: [main, develop]
+
 defaults:
   run:
-    working-directory: ./
-    
+    working-directory: .
+
 jobs:
-  build: 
+  build:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build_App
-        run: docker-compose up --build
-
-  test:
-      name: Test
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - name: Build_App
-          run: docker-compose up --build
-        - uses: docker://library_app
-        - name: Run_tests
-          run: python manage.py test
+      - name: Build
+        run: docker-compose up --build -d
